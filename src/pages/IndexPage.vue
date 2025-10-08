@@ -2,7 +2,6 @@
   <div class="q-pa-md" style="max-width: 400px">
 
     <q-form
-      ref="formRef"
       @submit="onSubmit"
       @reset="onReset"
       class="q-gutter-md"
@@ -13,7 +12,7 @@
         label="Your name *"
         hint="Name and surname"
         lazy-rules
-        :rules="[ val => val && val.length > 0 || 'Please type something', val => /^[A-Za-z\s]+$/.test(val) || 'Name can only contain letters and spaces' ]"
+        :rules="[ val => val && val.length > 0 || 'Please type something']"
       />
 
       <q-input
@@ -31,7 +30,7 @@
       <q-toggle v-model="accept" label="I accept the license and terms" />
 
       <div>
-        <q-btn label="Submit" type="submit" color="primary" :disable="!accept"/>
+        <q-btn label="Submit" type="submit" color="primary"/>
         <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
       </div>
     </q-form>
@@ -50,13 +49,11 @@ export default {
     const name = ref(null)
     const age = ref(null)
     const accept = ref(false)
-    const formRef = ref(null)
 
     return {
       name,
       age,
       accept,
-      formRef,
 
       onSubmit () {
         if (accept.value !== true) {
@@ -81,7 +78,6 @@ export default {
         name.value = null
         age.value = null
         accept.value = false
-        formRef.value.resetValidation()
       }
     }
   }
